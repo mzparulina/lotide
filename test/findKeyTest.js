@@ -11,7 +11,7 @@ const key = findKey({
 }, x => x.stars === 1); // => "noma"
 
 describe("#findKey", () => {
-  it("returns 1 for [1, 2, 3]", () => {
+  it("returns Blue Hill for the const key", () => {
     assert.strictEqual(key, "Blue Hill");
   });
 });

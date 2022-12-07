@@ -1,16 +1,21 @@
-// Returns true if both objects have identical keys with identical values.
-// Otherwise you get back a big fat false!
+const eqArrays = require('./eqArrays');
+
 const eqObjects = function(object1, object2) {
-  let obj1 = Object.keys(object1).sort();
-  let obj2 = Object.keys(object2).sort();
+  let output = true;
+  const array1 = Object.keys(object1).sort();
+  const array2 = Object.keys(object2).sort();
 
-  if (obj1.length === obj2.length) {
-    return obj1.every(obj => {
-      return obj2.indexOf(obj) >= 0;
-    });
+  if (array1.length !== array2.length) {
+    output = output && false;
+  } else for (let key in object1) {
+    if (Array.isArray(object1[key]) && Array.isArray(object2[key])) {
+      output = output && (eqArrays(object1[key], object2[key]));
+    } else if (typeof(object1[key]) === "object" || typeof(object2[key]) === "object") {
+      output = output && eqObjects(object1[key], object2[key]);
+    } else if (object1[key] !== object2[key]) output = output && false;
   }
-
-  return false;
+  return output;
 };
 
 module.exports = eqObjects;
+

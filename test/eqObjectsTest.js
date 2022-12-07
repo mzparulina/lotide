@@ -22,4 +22,13 @@ describe("#eqObjects", () => {
   it("should return false for (multiColorShirtObject , longSleeveMultiColorShirtObject)", () => {
     assert.deepEqual(eqObjects(multiColorShirtObject , longSleeveMultiColorShirtObject), false);
   });
+  it("should return true for ({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })", () => {
+    assert.deepEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true);
+  });
+  it("should return false for ({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 })", () => {
+    assert.deepEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false);
+  });
+  it("should return false for ({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 })", () => {
+    assert.deepEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false);
+  });
 });
